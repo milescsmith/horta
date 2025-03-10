@@ -25,7 +25,7 @@ except PackageNotFoundError:  # pragma: no cover
 
 app = typer.Typer(
     name="horta",
-    help="Keep a file system awake by repeatedly touching a file",
+    help="Keep a file system awake by repeatedly writing to a file",
     add_completion=False,
     no_args_is_help=True,
     rich_markup_mode="rich",
@@ -67,7 +67,7 @@ def no_kill_i(
         typer.Option(
             "--freq",
             "-f",
-            help="Frequency in minutes at which to touch the keep-alive file."
+            help="Frequency in minutes at which to write to the keep-alive file."
             )
         ],
 ) -> None:
@@ -80,5 +80,7 @@ def no_kill_i(
                 progress.update(countdown, advance=1)
                 sleep(1)
 
-            touchfile.touch()
+            with touchfile.open("w") as tf:
+                tf.writelines("echo? echo?")
+
             number_of_times_touched += 1

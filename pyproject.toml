@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "horta"
+version = "1.0.0"
+authors = [
+    {name = "Miles Smith", email = "miles-smith@omrf.org"}
+]
+description = "Repeatedly touch a file to keep a remote filesystem from going idle"
+license = "GPL-3.0-or-later"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "rich>=13.9.4",
+    "typer>=0.15.2",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.10",
+]
+
+[project.urls]
+Repository = "https://github.com/milescsmith/horta"
+
+[project.scripts]
+no_kill_i = "horta.__init__:app"
